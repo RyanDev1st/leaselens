@@ -1,5 +1,5 @@
 import { SAMPLES } from '../samples';
-import { ExtractError, describeError, readLeaseFile } from '../pdf/extract';
+import { ExtractError, describeError, preloadPdfReader, readLeaseFile } from '../pdf/extract';
 import { reflow } from '../pdf/reflow';
 import { DISCLAIMER } from '../engine/checklist';
 import { h } from './dom';
@@ -37,6 +37,7 @@ function specimen(): HTMLElement {
 }
 
 export function renderStart({ onAnalyze }: StartHandlers): HTMLElement {
+  preloadPdfReader();
   const textarea = h('textarea', {
     id: 'lease-text',
     rows: 9,

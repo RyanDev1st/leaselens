@@ -19,12 +19,37 @@ export async function readLeaseFile(file: File): Promise<string> {
   throw new ExtractError('not-supported');
 }
 
+let pdfjsPromise: Promise<typeof import('pdfjs-dist')> | null = null;
+
+function loadPdfjs(): Promise<typeof import('pdfjs-dist')> {
+  pdfjsPromise ??= (async () => {
+    const pdfjs = await import('pdfjs-dist');
+    const worker = await import('pdfjs-dist/build/pdf.worker.min.mjs?url');
+    // Keep the worker script in memory as a blob so PDFs also work offline after the first load.
+    try {
+      const res = await fetch(worker.default);
+      pdfjs.GlobalWorkerOptions.workerSrc = URL.createObjectURL(new Blob([await res.text()], { type: 'text/javascript' }));
+    } catch {
+      pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
+    }
+    return pdfjs;
+  })();
+  pdfjsPromise.catch(() => {
+    pdfjsPromise = null;
+  });
+  return pdfjsPromise;
+}
+
+/** Fetches the PDF reader in the background so a later drop is instant and works offline. */
+export function preloadPdfReader(): void {
+  const idle = (window as { requestIdleCallback?: (cb: () => void) => void }).requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 600));
+  idle(() => void loadPdfjs().catch(() => undefined));
+}
+
 async function extractPdfText(file: File): Promise<string> {
   let pdfjs: typeof import('pdfjs-dist');
   try {
-    pdfjs = await import('pdfjs-dist');
-    const worker = await import('pdfjs-dist/build/pdf.worker.min.mjs?url');
-    pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
+    pdfjs = await loadPdfjs();
   } catch {
     throw new ExtractError('unreadable');
   }

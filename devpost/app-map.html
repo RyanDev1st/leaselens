@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeaseLens app map</title>
+<style>
+  body{font:16px/1.55 system-ui,sans-serif;max-width:860px;margin:32px auto;padding:0 16px;color:#1d1b16;background:#faf6ee}
+  h1,h2{font-family:Georgia,serif} code{background:#efe9da;padding:1px 5px;border-radius:3px}
+  svg{max-width:100%;height:auto} details{border:1px solid #d8d0bf;padding:8px 12px;margin:8px 0;background:#fff}
+</style>
+</head>
+<body>
+<h1>LeaseLens app map</h1>
+<p>A snapshot guide to where things live. It can drift as the code changes. Run the app with <code>npm install</code> then <code>npm run dev</code>.</p>
+
+<h2>One action: click "Try a sample"</h2>
+<svg viewBox="0 0 800 110" role="img" aria-label="Click flows through start view, analyze, rules, and the result view">
+  <g font-family="sans-serif" font-size="13" fill="#1d1b16" stroke="#0f5c6e">
+    <rect x="5" y="25" width="150" height="60" rx="6" fill="#fff"/><text x="80" y="52" text-anchor="middle" stroke="none">ui/start.ts</text><text x="80" y="70" text-anchor="middle" stroke="none">sample button</text>
+    <rect x="215" y="25" width="170" height="60" rx="6" fill="#fff"/><text x="300" y="52" text-anchor="middle" stroke="none">engine/analyze.ts</text><text x="300" y="70" text-anchor="middle" stroke="none">analyze(text)</text>
+    <rect x="445" y="25" width="150" height="60" rx="6" fill="#fff"/><text x="520" y="52" text-anchor="middle" stroke="none">engine/rules/*</text><text x="520" y="70" text-anchor="middle" stroke="none">26 detectors</text>
+    <rect x="645" y="25" width="150" height="60" rx="6" fill="#fff"/><text x="720" y="52" text-anchor="middle" stroke="none">ui/result.ts</text><text x="720" y="70" text-anchor="middle" stroke="none">lease + cards</text>
+    <path d="M155 55h60M385 55h60M595 55h50" fill="none" stroke-width="2"/>
+  </g>
+</svg>
+
+<h2>Reference route (not toured interactively)</h2>
+<ol>
+  <li><code>src/main.ts</code>: <code>showStart()</code> passes <code>onAnalyze</code>, which calls <code>analyze()</code>.</li>
+  <li><code>src/engine/analyze.ts</code>: <code>analyze</code> splits sentences, runs every rule, merges highlights, scores.</li>
+  <li><code>src/ui/lease.ts</code>: <code>renderLease</code> wraps risky sentences in <code>&lt;mark&gt;</code>.</li>
+</ol>
+
+<h2>To change this, start here</h2>
+<details><summary>Add or tune a clause rule</summary>Edit a file in <code>src/engine/rules/</code>, then add a positive and a negative case to <code>tests/rules.test.ts</code>.</details>
+<details><summary>Change score weights or bands</summary><code>src/engine/score.ts</code> (<code>WEIGHTS</code>, <code>scoreFor</code>, <code>bandFor</code>).</details>
+<details><summary>Change colours or fonts</summary><code>src/styles/tokens.css</code>; <code>tests/design.test.ts</code> checks AA contrast.</details>
+<details><summary>Change wording of a message</summary>The <code>ask</code> text of the rule; the template is in <code>src/engine/messages.ts</code>.</details>
+
+<h2>A practice to reuse</h2>
+<p>Turn each PRD acceptance criterion into a test before polishing. Here, "fair wording must not be flagged" became the negative case per rule in <code>tests/rules.test.ts</code>, which caught heading lines being flagged as clauses. The same approach works on any project with a written spec.</p>
+</body>
+</html>
