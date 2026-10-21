@@ -1,0 +1,25 @@
+{
+  "name": "leaselens",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Private, in-browser lease reader that highlights risky clauses and drafts negotiation messages.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "capture": "node submission/capture.mjs"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^6.4.299"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "playwright": "^1.64.1",
+    "typescript": "^7.0.2",
+    "vite": "^5.4.21",
+    "vitest": "^2.1.9"
+  }
+}

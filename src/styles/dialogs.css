@@ -1,0 +1,77 @@
+dialog.sheet {
+  width: min(560px, calc(100vw - 24px));
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 24px 26px 26px;
+  box-shadow: 0 20px 60px rgb(29 27 22 / 25%);
+}
+dialog.sheet-wide {
+  width: min(720px, calc(100vw - 24px));
+}
+dialog.sheet::backdrop {
+  background: rgb(29 27 22 / 45%);
+}
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.sheet h2 {
+  font-size: 1.5rem;
+}
+.sheet h3 {
+  font-size: 1.05rem;
+  margin: 18px 0 8px;
+}
+.sheet label {
+  display: block;
+  font-weight: 600;
+  margin: 14px 0 2px;
+}
+.notice {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 12px 14px 4px;
+  margin: 12px 0;
+}
+.sheet .row {
+  margin-top: 14px;
+}
+.deeper-output {
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.checks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.checks li {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.box {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+}
+.tag {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}

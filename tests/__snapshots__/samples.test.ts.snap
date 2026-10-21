@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`samples > snapshot of stable results 1`] = `
+[
+  {
+    "band": "Very high",
+    "counts": {
+      "high": 18,
+      "low": 3,
+      "medium": 13,
+    },
+    "id": "maple-court",
+    "rules": 34,
+    "score": 90,
+  },
+  {
+    "band": "Lower",
+    "counts": {
+      "high": 0,
+      "low": 2,
+      "medium": 2,
+    },
+    "id": "riverside-house",
+    "rules": 4,
+    "score": 12,
+  },
+]
+`;

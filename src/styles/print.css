@@ -1,0 +1,59 @@
+@media print {
+  body {
+    background: #fff;
+    display: block;
+  }
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .toast,
+  .no-print,
+  .tabs {
+    display: none !important;
+  }
+  .split {
+    display: block;
+  }
+  .findings {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+  .paper,
+  .card,
+  .summary {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .hl {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Print the checklist alone */
+  body[data-print='checklist'] main > * > *:not(dialog),
+  body[data-print='checklist'] .start {
+    display: none !important;
+  }
+  body[data-print='checklist'] dialog:not(#checklist-dialog) {
+    display: none !important;
+  }
+  body[data-print='checklist'] #checklist-dialog {
+    position: static;
+    width: 100%;
+    max-height: none;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    display: block;
+  }
+  body[data-print='report'] dialog {
+    display: none !important;
+  }
+  .dialog-close {
+    display: none !important;
+  }
+}
